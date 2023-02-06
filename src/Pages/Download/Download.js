@@ -1,9 +1,16 @@
-import React from 'react'
+import React from 'react';
+import NavBar from '../../Components/NavBar/NavBar';
+import './Download.css';
 
-function Downloads() {
+const Downloads =() => {
+  <NavBar/>
   return (
-    <div>Downloads</div>
+    <div>
+      <p>
+        this is download page
+      </p>
+    </div>
   )
 };
 
-export default Downloads
+export default Downloads;
