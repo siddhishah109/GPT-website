@@ -1,6 +1,6 @@
 /** @jsxImportSource theme-ui */
 import {useColorMode } from 'theme-ui';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {Nav} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './NavBar.css';
@@ -8,7 +8,15 @@ import './NavBar.css';
 const NavBar =() => {
 
   const [colorMode,setColorMode] = useColorMode();
+  const handleColorMode = () => {
+    setColorMode(colorMode === 'light' ? 'dark' : 'light')
+    sessionStorage.setItem('theme', colorMode === 'light' ? 'dark' : 'light')
+  } 
   const [open,setOpen]=useState(false);
+  useEffect(() => {
+    document.body.style.backgroundColor = colorMode === 'light' ? 'white' : 'black';
+    document.body.style.color = colorMode === 'light' ? 'black' : 'white';
+  }, [colorMode])
   return (
     <div>
         <nav>
@@ -20,7 +28,7 @@ const NavBar =() => {
             <Nav.Link as={ Link } to="/documentation" eventKey={3}>Documentation</Nav.Link>
             <Nav.Link as={ Link } to="/about" eventKey={4}>About</Nav.Link>
 
-            <button className='toggle' onClick={() => setColorMode(colorMode === 'light' ? 'dark' : 'light')} sx={{backgroundColor: 'primary' , color: 'InverseText'}}> {colorMode === 'light' ? '🌑' : '☀️'} </button>
+            <button className='toggle' onClick={handleColorMode} sx={{backgroundColor: 'primary' , color: 'InverseText', border: 0}}> {colorMode === 'light' ? '🌑' : '☀️'} </button>
             </ul>
             <i onClick={() => setOpen(!open)} className="fas fa-bars Menu"></i>
         </nav>
